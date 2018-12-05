@@ -48,8 +48,11 @@ public:
 		Animals = { Neutral_List, Prey_List, Predator_List }; //stores the all of the animals in their respective lists
 	}
 	int Get_Num_Animals() {
-		return num_animals; // returns what the user outputted for the number of zoo animals in game
-	}
+		/*
+		returns what the user outputted for the number of zoo animals in game
+		O(1) - no iteration being performed, just returning num_animals
+		*/
+		return num_animals; 	}
 	void intro() { 
 		/*
 		this function is created to introduce the user to the game and find out how many animals will be utilized in game
@@ -149,17 +152,17 @@ public:
 		animals = Animals; // so we can use the Zoo_animals class in this class
 	}
 
-	void print_trailer() {
-		/*
-		this function prints out the animals in the Trailer deque
-		used for testing purposes
-		O(n) - iterates n number of times
-		*/
-		for (auto vect : Trailer) {
-			cout << vect[0] << ", ";
-		}
-		cout << endl;
-	}
+	//void print_trailer() {
+	//	/*
+	//	this function prints out the animals in the Trailer deque
+	//	used for testing purposes
+	//	O(n) - iterates n number of times
+	//	*/
+	//	for (auto vect : Trailer) {
+	//		cout << vect[0] << ", ";
+	//	}
+	//	cout << endl;
+	//}
 
 	void User_Num_Animals() {
 		/*
@@ -284,9 +287,9 @@ public:
 
 
 int main() {
-	Zoo_Animals game; // calls the Zoo_Animals class and uses 'game' to refer to it
+	Zoo_Animals game; // calls the Zoo_Animals constructor and uses 'game' to refer to it
 	game.intro(); // runs intro function from the Zoo_Animals class
-	Zoo_Game gamer(game); // calls the Zoo_Game class and uses 'gamer' to refer to it
+	Zoo_Game gamer(game); // calls the Zoo_Game constructor and uses 'gamer' to refer to it
 	gamer.User_Num_Animals(); // runs the main function in the Zoo_Games class to implement the game 
 
 	// for screen
