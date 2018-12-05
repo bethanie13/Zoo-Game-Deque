@@ -287,9 +287,9 @@ public:
 
 
 int main() {
-	Zoo_Animals game; // calls the Zoo_Animals constructor and uses 'game' to refer to it
+	Zoo_Animals game; // calls  Zoo_Animals and uses 'game' to refer to it
 	game.intro(); // runs intro function from the Zoo_Animals class
-	Zoo_Game gamer(game); // calls the Zoo_Game constructor and uses 'gamer' to refer to it
+	Zoo_Game gamer(game); // calls Zoo_Game and uses 'gamer' to refer to it
 	gamer.User_Num_Animals(); // runs the main function in the Zoo_Games class to implement the game 
 
 	// for screen
