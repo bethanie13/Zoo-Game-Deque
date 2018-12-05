@@ -38,9 +38,11 @@ public:
 	void intro() { 
 		/*
 		this function is created to introduce the user to the game and find out how many animals will be utilized in game
+		//O(N)
 		*/
 		cout << "Please enter a number between 3-21: " << endl;
 		cin >> num_animals;
+		
 		if (num_animals < 3 || num_animals > 21) { // if user does not follow instructions, make them input a number again
 			cout << "That number is invalid. Please enter a number between 3-21. " << endl;
 			intro(); // uses recursion to call the function again so the user can input another number
@@ -69,6 +71,7 @@ public:
 		/*
 		creates a vector that produces a random animal, the category the animal can be found in, and
 		erases the animal form the vector to make sure not to output the animal again
+		O(1)
 		*/
 		vector<string>current; // creates a vector to hold the animal and its category
 		if (num_animals != 0) { // while there are still animals
@@ -137,6 +140,7 @@ public:
 	string randomize_1()
 		/*
 		randomly selects a building from the building vector list 
+		O(1)
 		*/
 	{
 		srand(time(NULL));
@@ -159,22 +163,23 @@ public:
 		animals = Animals; // so we can use the Zoo_animals class in this class
 	}
 
-	//void print_trailer() {
-	//	/*
-	//	this function prints out the animals in the Trailer deque
-	//	used for testing purposes
-	//	*/
-	//	for (auto vect : Trailer) {
-	//		cout << vect[0] << ", ";
-	//	}
-	//	cout << endl;
-	//}
+	void print_trailer() {
+		/*
+		this function prints out the animals in the Trailer deque
+		used for testing purposes
+		*/
+		for (auto vect : Trailer) {
+			cout << vect[0] << ", ";
+		}
+		cout << endl;
+	}
 
 	void User_Num_Animals() {
 		/*
 		calls functions from Zoo_animal class to be able to implement the finding of a 
 		random animal and building and return it while also calling functions from this class
 		that adds the animal onto the trailer, but if they fail, ends the game
+		O(N)
 		*/
 		for (int count = 0; count < animals.Get_Num_Animals(); count++) { // while there are still animals in the game, continue
 			//cout << i << endl; // testing purposes
@@ -201,6 +206,7 @@ public:
 		main funciton and purpose of the deque
 		this function allows the user to push their animal to the front or back of the deque
 		however, if they push a predator and prey next to each other, they lose the game
+		O(N)
 		*/
 		string place = ""; // variable to take in the user's response of where they wanted the animal to go (front/back)
 		
@@ -211,68 +217,76 @@ public:
 		if (place == "F") { // if the user decided to push the animal to the front of the trailer
 			//Trailer.push_front(curr_animal);
 			//print_trailer(); // for testing purposes
-			//if (Trailer.size() > 1) {
-			cout << Trailer[0][1];
-			if (curr_animal[1] == "Prey" && Trailer[0][1] == "Predator") {
-				cout << "Trailer size " << Trailer.size() << " current animal index " << curr_animal[1] << "\n "; // testing purposes
-				cout << "Uh-Oh! It looks like the " << Trailer[0][0] << " has eaten the " << curr_animal[0] << "!" << endl;
-				cout << "You have failed your mission and lost your job! Game Over!" << endl;
-				cout << "place 1"; // testing purposes
-				return false;
-			}
-			else if (curr_animal[1] == "Predator" && Trailer[0][1] == "Prey") {
-				cout << "Trailer size " << Trailer.size() << " current animal index " << curr_animal[1] << "\n "; // testing purposes
-				cout << "Uh-Oh! It looks like the " << curr_animal[0] << " has eaten the " << Trailer[0][0] << "!" << endl;
-				cout << "You have failed your mission and lost your job! Game Over!" << endl;
-				cout << "place 2"; // testing purposes
-				return false;
+			cout << Trailer.size();
+			if (Trailer.size() == 0) {
+				Trailer.push_back(curr_animal);
 			}
 			else {
-				Trailer.push_front(curr_animal);
-				//print_trailer();
-				if (animals.Get_Num_Animals() == Trailer.size()) {
-					cout << "You have won the game!" << endl;
+				//cout << Trailer[0][1];
+				if (curr_animal[1] == "Prey" && Trailer[0][1] == "Predator") {
+					cout << "Trailer size " << Trailer.size() << " current animal index " << curr_animal[1] << "\n "; // testing purposes
+					cout << "Uh-Oh! It looks like the " << Trailer[0][0] << " has eaten the " << curr_animal[0] << "!" << endl;
+					cout << "You have failed your mission and lost your job! Game Over!" << endl;
+					cout << "place 1"; // testing purposes
+					return false;
 				}
-				return true;
-			}
-		
+				else if (curr_animal[1] == "Predator" && Trailer[0][1] == "Prey") {
+					cout << "Trailer size " << Trailer.size() << " current animal index " << curr_animal[1] << "\n "; // testing purposes
+					cout << "Uh-Oh! It looks like the " << curr_animal[0] << " has eaten the " << Trailer[0][0] << "!" << endl;
+					cout << "You have failed your mission and lost your job! Game Over!" << endl;
+					cout << "place 2"; // testing purposes
+					return false;
+				}
+				else {
+					Trailer.push_front(curr_animal);
+					//print_trailer();
+					if (animals.Get_Num_Animals() == Trailer.size()) {
+						cout << "You have won the game!" << endl;
+					}
+					return true;
+				}
 
+			}
 		}
 		else if (place == "B") {
-			
-			//if (Trailer.size() > 1) {
-			
-			if (curr_animal[1] == "Prey" && Trailer[Trailer.size() - 1][1] == "Predator") {
-				cout << "Trailer size " << Trailer.size() << " current animal index " << curr_animal[1] << "\n "; // testing purposes
-				cout << "Uh-Oh! It looks like the " << Trailer[Trailer.size() - 1][0] << " has eaten the " << curr_animal[0] << "!" << endl;
-				cout << "You have failed your mission and lost your job! Game Over!" << endl;
-				cout << "place 3"; // testing purposes
-				return false;
-			}
-			else if (curr_animal[1] == "Predator" && Trailer[Trailer.size() - 1][1] == "Prey") {
-				cout << "Trailer size " << Trailer.size() << " current animal index " << curr_animal[1] << "\n "; // testing purposes
-				cout << "Uh-Oh! It looks like the " << curr_animal[0] << " has eaten the " << Trailer[Trailer.size() - 1][0] << "!" << endl;
-				cout << "You have failed your mission and lost your job! Game Over!" << endl;;
-				cout << "place 4"; // testing purposes
-				return false;
+			cout << Trailer.size();
+			if (Trailer.size() == 0) {
+				Trailer.push_back(curr_animal);
 			}
 			else {
-				Trailer.push_back(curr_animal);
-				//print_trailer();
-				if (animals.Get_Num_Animals() == Trailer.size()) {
-					cout << "You have won the game!" << endl;
+
+				if (curr_animal[1] == "Prey" && Trailer[Trailer.size() - 1][1] == "Predator") {
+					cout << "Trailer size " << Trailer.size() << " current animal index " << curr_animal[1] << "\n "; // testing purposes
+					cout << "Uh-Oh! It looks like the " << Trailer[Trailer.size() - 1][0] << " has eaten the " << curr_animal[0] << "!" << endl;
+					cout << "You have failed your mission and lost your job! Game Over!" << endl;
+					cout << "place 3"; // testing purposes
+					return false;
 				}
-				return true;
-			}
-				
+				else if (curr_animal[1] == "Predator" && Trailer[Trailer.size() - 1][1] == "Prey") {
+					cout << "Trailer size " << Trailer.size() << " current animal index " << curr_animal[1] << "\n "; // testing purposes
+					cout << "Uh-Oh! It looks like the " << curr_animal[0] << " has eaten the " << Trailer[Trailer.size() - 1][0] << "!" << endl;
+					cout << "You have failed your mission and lost your job! Game Over!" << endl;;
+					cout << "place 4"; // testing purposes
+					return false;
+				}
+				else {
+					Trailer.push_back(curr_animal);
+					print_trailer();
+					if (animals.Get_Num_Animals() == Trailer.size()) {
+						cout << "You have won the game!" << endl;
+					}
+					return true;
+				}
+
 				/*else {
 					return true;
 				}*/
+			}
+			
 		}
 		else {
 			Animal_Place(curr_animal);
 		}
-		
 	}
 	
 };
